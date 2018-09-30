@@ -16,30 +16,33 @@ public class Main {
         File bookPath = new File("Phone Book.txt");
 
         FileWriter fileWriter = new FileWriter(bookPath, true);
-        BufferedReader fr = null;
+        BufferedReader fr;
 
-        fileWriter.write("\n Тимур 89178702345 Олег 89178702345 Федор 89178702345 Катя 21/21/2018 ");
+        fileWriter.write(" \n " + " Тимур 89178702345 Олег 89178702345 Федор 89178702345 Катя 21/21/2018 ");
         fileWriter.write("Витя 89178702345");
-        fileWriter.write("\n" + "Тузик 89172354534"); // не понимаю почему обрезается 1я буква в предложении
+        fileWriter.write(" \n " + " Тузик 89172354534");
         fileWriter.write(" Иван 89439857238");
         fileWriter.close();
 
+        int a;
         try {
             fr = new BufferedReader(new FileReader(bookPath));
-            while (fr.read() != -1) {
-                String text = fr.readLine();
-                String[] textArray = text.split(" ");
-                StringBuilder newText = new StringBuilder();
-                for ( int i = 0; i < textArray.length; i++ ) {
-                    if (check(textArray[i])) {
-                        continue;
-                    } else {
-                        newText.append(" ");
-                        newText.append(textArray[i]);
-                    }
-                }
-                System.out.println(newText);
+            StringBuilder text = new StringBuilder ();
+            while ((a = fr.read()) != -1) {
+                text.append((char)a);
             }
+            System.out.println("СТАРЫЙ ТЕКСТ: "+text);
+            String[] textArray = text.toString().split(" ");
+            StringBuilder newText = new StringBuilder();
+            for ( int i = 0; i < textArray.length; i++ ) {
+                if (check(textArray[i])) {
+                    continue;
+                } else {
+                    newText.append(" ");
+                    newText.append(textArray[i]);
+                }
+            }
+            System.out.println("НОВЫЙ ТЕКСТ: "+newText.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
